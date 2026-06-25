@@ -55,40 +55,36 @@ pub fn decrypt(
 
 #[cfg(test)]
 mod tests {
-    use std::result;
-
-use crate::crypto::encrypt;
-
-use super::*;
+    use super::*;
 
     #[test]
     fn encrypt_decrypt_roundtrip() {
-        let key_bytes = [42u8; 32];
+        let key_bytes = [42u8; 32];  // test key — never do this outside tests
         let session_key = SessionKey::from_shared_secret(key_bytes);
         let plaintext = b"hello from the test suite";
 
         let encrypted = encrypt(plaintext, &session_key)
-        .expect("encryption should not fail");
+            .expect("encryption should not fail");
 
         let decrypted = decrypt(&encrypted, &session_key)
-        .expect("decryption should not fail");
+            .expect("decryption should not fail");
 
-    assert_eq!(plaintext, decrypted.as_slice())
+        assert_eq!(plaintext, decrypted.as_slice());
     }
 
     #[test]
-    fn wrong_key_fails(){
+    fn wrong_key_fails() {
         let key_bytes = [42u8; 32];
         let wrong_key_bytes = [99u8; 32];
 
         let session_key = SessionKey::from_shared_secret(key_bytes);
         let wrong_key = SessionKey::from_shared_secret(wrong_key_bytes);
 
-        let encrypted = encrypt(b"secret", &session_key).expect("encryption should not fail");
+        let encrypted = encrypt(b"secret", &session_key)
+            .expect("encryption should not fail");
 
         let result = decrypt(&encrypted, &wrong_key);
 
-        assert!(result.is_err(), "decryption with wrong key should fail!");
+        assert!(result.is_err(), "decryption with wrong key should fail");
     }
-
 }
