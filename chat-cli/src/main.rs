@@ -3,8 +3,9 @@
 use chat_core::crypto::KeyPair;
 
 fn main(){
-    let keypair = KeyPair::generate().expect("Failed to generate keypair!");
-
-    println!("Public key: {:?}", keypair.public_bytes());
-    println!("Keypair generated successfully!");
+    let keypair = KeyPair::generate().expect("failed");
+    let bytes = keypair.to_bytes();
+    println!("{:?}", bytes.secret);
+    println!("{:?}", keypair.public_bytes());
+    drop(keypair);
 }

@@ -18,4 +18,7 @@ pub enum CryptoError {
 
     #[error("Failed to serialize key: {0}")]
     SerializationFailed(String),
+
+    #[error("Key too short, got {0}")]
+    KeyTooShort(usize)
 }

@@ -1,10 +1,12 @@
+use std::fs::TryLockError::Error;
+
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 Brass-ape
 use chacha20poly1305::{
     ChaCha20Poly1305, Key, Nonce, aead::{Aead, AeadCore, KeyInit, OsRng}
 };
 use zeroize::Zeroize;
-use crate::crypto::CryptoError;
+use crate::crypto::CryptoError::{self, KeyTooShort};
 
 pub struct EncryptedMessage {
     pub ciphertext: Vec<u8>,
@@ -55,6 +57,16 @@ pub fn decrypt(
     Ok(plaintext)
 }
 
+pub fn validate_key_length(key: &[u8]) -> Result<(), CryptoError> {
+    let valid = (key.len() < 32);
+    if (valid) {
+        Err(CryptoError::KeyTooShort((key.len())))
+    } else {
+        Ok(())
+    }
+
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -89,4 +101,15 @@ mod tests {
 
         assert!(result.is_err(), "decryption with wrong key should fail");
     }
+
+    #[test]
+    fn long_enough_key(){
+        let valid_bytes =  &[0u8, 32];
+        let invalid_bytes = &[0u8, 5];
+
+        let valid = validate_key_length(valid_bytes);
+        let invalid = validate_key_length(invalid_bytes);
+
+        assert!(invalid.is.err(), "")
+    }   
 }

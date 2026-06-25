@@ -38,7 +38,7 @@ pub struct KeyPairBytes {
 }
 
 impl KeyPair {
-    pub fn to_byes(&self) -> KeyPairBytes {
+    pub fn to_bytes(&self) -> KeyPairBytes {
         KeyPairBytes {
             public: self.public.to_bytes(),
             secret: self.secret.to_bytes(),
