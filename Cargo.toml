@@ -4,5 +4,5 @@ members=[
     "chat-core",
     "chat-cli",
 ]
-
+license = "GPL-3.0-only"
 resolver = "2"

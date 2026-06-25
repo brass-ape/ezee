@@ -2,7 +2,7 @@
 name = "chat-cli"
 version = "0.1.0"
 edition = "2024"
-
+license = "GPL-3.0-only"
 [dependencies]
 chat-core = {path = "../chat-core"}
 tokio = {version = "1", features = ["full"]}

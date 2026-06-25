@@ -2,7 +2,7 @@
 name = "chat-core"
 version = "0.1.0"
 edition = "2024"
-
+license = "GPL-3.0-only"
 [dependencies]
 thiserror = "1"
 x25519-dalek = { version = "2", features = ["static_secrets"] }
