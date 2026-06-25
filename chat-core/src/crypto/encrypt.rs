@@ -1,5 +1,5 @@
 use chacha20poly1305::{
-    ChaCha20Poly1305, ChaChaPoly1305, Key, Nonce, aead::{Aead, AeadCore, KeyInit, OsRng}
+    ChaCha20Poly1305, Key, Nonce, aead::{Aead, AeadCore, KeyInit, OsRng}
 };
 use zeroize::Zeroize;
 use crate::crypto::CryptoError;
