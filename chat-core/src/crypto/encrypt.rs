@@ -59,8 +59,8 @@ pub fn decrypt(
 
 pub fn validate_key_length(key: &[u8]) -> Result<(), CryptoError> {
     let valid = (key.len() < 32);
-    if (valid) {
-        Err(CryptoError::KeyTooShort((key.len())))
+    if valid {
+        Err(CryptoError::KeyTooShort(key.len()))
     } else {
         Ok(())
     }
@@ -110,6 +110,6 @@ mod tests {
         let valid = validate_key_length(valid_bytes);
         let invalid = validate_key_length(invalid_bytes);
 
-        assert!(invalid.is.err(), "")
+        assert!(invalid.is_err(), "this should be an error");
     }   
 }
